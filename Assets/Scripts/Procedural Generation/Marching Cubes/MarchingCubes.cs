@@ -1,4 +1,5 @@
 using UnityEngine;
+using ClownLib;
 
 [System.Serializable]
 public class MCChunk
@@ -48,9 +49,9 @@ public static class MarchingCubes
                     for (int i = 0; i < marchingCubesTable[tableIndex, 0]; i++)
                     {
                         int triIndex = marchingCubesTable[tableIndex, i + 1];
-                        (byte first, byte second) edgeIndices = marchingCubesEdgeTable[triIndex];
-                        Vector3Int firstPos = pos + marchingCubesCornerTable[edgeIndices.first],
-                            secondPos = pos + marchingCubesCornerTable[edgeIndices.second];
+                        (byte first, byte second) = marchingCubesEdgeTable[triIndex];
+                        Vector3Int firstPos = pos + marchingCubesCornerTable[first],
+                            secondPos = pos + marchingCubesCornerTable[second];
                         float firstValue = chunk.data[firstPos.x, firstPos.y, firstPos.z],
                             secondValue = chunk.data[secondPos.x, secondPos.y, secondPos.z];
                         verts[index] = Vector3.Lerp(firstPos, secondPos,

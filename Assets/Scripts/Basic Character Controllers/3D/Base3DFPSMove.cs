@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using ClownLib;
 
 public class Base3DFPSMove : MonoBehaviour
 {
@@ -20,10 +21,9 @@ public class Base3DFPSMove : MonoBehaviour
         Vector2 input = moveAction.action.ReadValue<Vector2>();
 
         if (input.sqrMagnitude > 0.05f)
-            velocity = CMath.Vector3XZ_Y(CMath.TryAdd2(CMath.Vector3ToXZ(velocity),
-                Time.deltaTime * accel * input.normalized, speed), velocity.y);
+            velocity = velocity.XZ().TryAdd2(
+                Time.deltaTime * accel * input.normalized, speed).XZ_Y(velocity.y);
         else
-            velocity = CMath.Vector3XZ_Y(CMath.TrySub2(CMath.Vector3ToXZ(velocity),
-                Time.deltaTime * accel), velocity.y);
+            velocity = velocity.XZ().TrySub2(Time.deltaTime * accel).XZ_Y(velocity.y);
     }
 }

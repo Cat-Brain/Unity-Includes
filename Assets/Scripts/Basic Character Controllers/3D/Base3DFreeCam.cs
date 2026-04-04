@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using ClownLib;
 
 public class Base3DFreeCam : Base3DFPSMove
 {

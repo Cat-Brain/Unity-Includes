@@ -1,8 +1,7 @@
 using com.cyborgAssets.inspectorButtonPro;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using ClownLib;
 
 public class FPSController : MonoBehaviour
 {
@@ -51,9 +50,9 @@ public class FPSController : MonoBehaviour
         Vector2 input = movementAction.action.ReadValue<Vector2>();
 
         if (input == Vector2.zero)
-            velocity = CMath.Vector3XZ_Y(CMath.TrySub2(CMath.Vector3ToXZ(velocity), Time.deltaTime * decel), velocity.y);
+            velocity = velocity.XZ().TrySub2(Time.deltaTime * decel).XZ_Y(velocity.y);
         else
-            velocity = CMath.Vector3XZ_Y(CMath.TryAdd2(CMath.Vector3ToXZ(velocity), Time.deltaTime * accel * input.normalized, speed), velocity.y);
+            velocity = velocity.XZ().TryAdd2(Time.deltaTime * accel * input.normalized, speed).XZ_Y(velocity.y);
 
         rb.linearVelocity = transform.TransformDirection(velocity);
     }

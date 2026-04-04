@@ -1,4 +1,5 @@
 using UnityEngine;
+using ClownLib;
 
 public static class CGizmos
 {
@@ -44,7 +45,7 @@ public static class CGizmos
     public static void DrawXZWireSquare(Vector3 center, Vector2 halfDim)
     {
         Vector3[] points = new Vector3[4];
-        Vector3 dir = CMath.Vector3X0Y(halfDim);
+        Vector3 dir = halfDim.XZ_Y();
         points[0] = center + dir;
         dir.x *= -1;
         points[1] = center + dir;
@@ -59,7 +60,7 @@ public static class CGizmos
     public static void DrawYZWireSquare(Vector3 center, Vector2 halfDim)
     {
         Vector3[] points = new Vector3[4];
-        Vector3 dir = CMath.Vector30XY(halfDim);
+        Vector3 dir = halfDim.YZ_X();
         points[0] = center + dir;
         dir.y *= -1;
         points[1] = center + dir;
@@ -74,8 +75,8 @@ public static class CGizmos
 
     public static void DrawWireExpandedCube(Vector3 center, Vector3 halfDim, float radius)
     {
-        DrawYZWireSquare(center + new Vector3(halfDim.x + radius, 0, 0), CMath.Vector3ToYZ(halfDim));
-        DrawYZWireSquare(center - new Vector3(halfDim.x + radius, 0, 0), CMath.Vector3ToYZ(halfDim));
+        DrawYZWireSquare(center + new Vector3(halfDim.x + radius, 0, 0), halfDim.YZ());
+        DrawYZWireSquare(center - new Vector3(halfDim.x + radius, 0, 0), halfDim.YZ());
 
         DrawEmptyAxisArc(center + halfDim, new Vector3(0, InvSqrt2, InvSqrt2), Vector3.right, radius, 45);
         DrawEmptyAxisArc(center + CMath.V3NPP(halfDim), new Vector3(0, InvSqrt2, InvSqrt2), Vector3.right, radius, 45);
@@ -90,8 +91,8 @@ public static class CGizmos
         DrawEmptyAxisArc(center + CMath.V3NPN(halfDim), new Vector3(0, InvSqrt2, -InvSqrt2), Vector3.right, radius, 45);
 
 
-        DrawXZWireSquare(center + new Vector3(0, halfDim.y + radius, 0), CMath.Vector3ToXZ(halfDim));
-        DrawXZWireSquare(center - new Vector3(0, halfDim.y + radius, 0), CMath.Vector3ToXZ(halfDim));
+        DrawXZWireSquare(center + new Vector3(0, halfDim.y + radius, 0), halfDim.XZ());
+        DrawXZWireSquare(center - new Vector3(0, halfDim.y + radius, 0), halfDim.XZ());
 
         DrawEmptyAxisArc(center + halfDim, new Vector3(InvSqrt2, 0, InvSqrt2), Vector3.up, radius, 45);
         DrawEmptyAxisArc(center + CMath.V3PNP(halfDim), new Vector3(InvSqrt2, 0, InvSqrt2), Vector3.up, radius, 45);

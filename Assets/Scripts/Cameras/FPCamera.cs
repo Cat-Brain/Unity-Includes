@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using ClownLib;
 
 public class FPCamera : MonoBehaviour
 {
@@ -21,7 +21,7 @@ public class FPCamera : MonoBehaviour
 
     private void Update()
     {
-        Vector2 input = GetSensitivity() * lookAction.action.ReadValue<Vector2>() * Time.timeScale;
+        Vector2 input = GetSensitivity() * Time.timeScale * lookAction.action.ReadValue<Vector2>();
 
         playerBody.Rotate(0, input.x, 0);
 
